@@ -1,7 +1,12 @@
+/* ---- Base reset / sane defaults ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
 html, body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
+
+img { max-width: 100%; height: auto; display: block; }
 
 p {
     font-size: 18px;
@@ -21,16 +26,20 @@ h3 {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    font-family: Roboto;
-    font-size: 55px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  padding: 0.75rem 1rem;
 }
 
 ul {
@@ -42,20 +51,25 @@ a {
 }
 
 nav ul {
-    list-style-type: none;
-    background-color: #333;
-    text-align: center;
+  list-style-type: none;
+  background-color: #333;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
 }
 
 nav ul li {
-    display: inline-block;
-    margin: 0 10px;
+  margin: 0;
 }
 
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 5px 10px;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  display: block;
+  border-radius: 0.35rem;
 }
 
 nav ul li a:hover {
@@ -67,48 +81,62 @@ li > ul > li {
 }
 
 main {
-    padding: 20px;
+  padding: 20px;
+  flex: 1;
+  width: min(100% - 2rem, 1100px);
+  margin-inline: auto;
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
 }
 
 #picture {
-    width: 450px; 
-    height: auto; 
+  width: min(100%, 450px);
+  border-radius: 0.75rem;
 }
 
-#image-div {
-    width: 20%;
-}
-#image-other-div {
-    width: 60%;
-}
-
-.left-div {
-    float: left;
-    width: 40%; 
-    margin-left: 100px;
-
+/* Two-column layout used on Home/Fun Facts/Academics */
+.two-col {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
 }
 
-.right-div {
-    float: right;
-    width: 45%; 
-    margin-right: 100px;
+.two-col .left-div,
+.two-col .right-div {
+  float: none;
+  margin: 0;
+  width: auto;
+}
+
+.two-col .left-div {
+  flex: 0 1 320px;
+}
+
+.two-col .right-div {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .two-col { flex-direction: column; }
+  .two-col .left-div { flex-basis: auto; }
 }
 
 table {
     width: 100%;
     border-collapse: collapse; 
+}
+
+/* Allow wide tables to scroll on mobile instead of breaking the layout */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
 }
 
 th, td {
